@@ -1,25 +1,42 @@
-from .abbr import plugin_abbr
-from .def_list import plugin_def_list
-from .extra import plugin_strikethrough, plugin_url
-from .footnotes import plugin_footnotes
-from .table import plugin_table
-from .task_lists import plugin_task_lists
+#!/usr/bin/env python
+# Copyright (c) 2017-2019, Intel Corporation
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are met:
+#
+#     * Redistributions of source code must retain the above copyright notice,
+#       this list of conditions and the following disclaimer.
+#     * Redistributions in binary form must reproduce the above copyright
+#       notice, this list of conditions and the following disclaimer in the
+#       documentation and/or other materials provided with the distribution.
+#     * Neither the name of Intel Corporation nor the names of its contributors
+#       may be used to endorse or promote products derived from this software
+#       without specific prior written permission.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+# DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+# FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+# DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+# SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+# CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+# OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+# OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-PLUGINS = {
-    "url": plugin_url,
-    "strikethrough": plugin_strikethrough,
-    "footnotes": plugin_footnotes,
-    "table": plugin_table,
-    "task_lists": plugin_task_lists,
-    "def_list": plugin_def_list,
-    "abbr": plugin_abbr,
-}
+from __future__ import division, absolute_import, print_function
 
-__all__ = [
-    "PLUGINS",
-    "plugin_url",
-    "plugin_strikethrough",
-    "plugin_footnotes",
-    "plugin_table",
-    "plugin_abbr",
-]
+from .mklrand import *
+from ._version import __version__
+
+try:
+    from numpy.testing.nosetester import _numpy_tester
+    test = _numpy_tester().test
+    bench = _numpy_tester().bench
+    del _numpy_tester
+except ModuleNotFoundError:
+    # Pytest testing
+    from numpy._pytesttester import PytestTester
+    test = PytestTester(__name__)
+    del PytestTester
+
